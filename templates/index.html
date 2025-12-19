@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Logline Doctor 🎬 (HTML/JS)</title>
+    <style>
+        /* --- Google Font (Inter) --- */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+        :root {
+            --primary-color: #e63946; /* A vibrant red for action/primary elements */
+            --secondary-color: #457b9d; /* A calm blue for headers */
+            --background-color: #f1faee; /* Light, fresh background */
+            --card-background: #ffffff;
+            --text-color: #1d3557; /* Dark blue/almost black for readability */
+            --success-color: #2a9d8f; /* Teal/green for success */
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px;
+            background-color: var(--card-background);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(29, 53, 87, 0.1); /* Subtle shadow using text color */
+        }
+
+        h1 {
+            color: var(--primary-color);
+            text-align: center;
+            font-weight: 800;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        h1 span {
+            font-size: 1.5rem;
+            vertical-align: middle;
+        }
+
+        p, .caption {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #495057;
+        }
+        
+        /* --- Input Area --- */
+        textarea {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            box-sizing: border-box;
+            resize: vertical;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        textarea:focus {
+            border-color: var(--secondary-color);
+            outline: none;
+        }
+
+        /* --- Button --- */
+        button {
+            display: block;
+            width: 100%;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 14px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: background-color 0.3s, transform 0.1s;
+            box-shadow: 0 4px 10px rgba(230, 57, 70, 0.4);
+        }
+        button:hover {
+            background-color: #d1303b; /* Slightly darker red */
+            transform: translateY(-1px);
+        }
+        button:active {
+            transform: translateY(1px);
+        }
+        
+        /* --- Results Area --- */
+        #results {
+            margin-top: 40px;
+            padding: 30px;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            transition: opacity 0.5s;
+        }
+
+        .section-title {
+            color: var(--secondary-color);
+            font-size: 1.4rem;
+            margin-top: 30px;
+            margin-bottom: 10px;
+            border-left: 4px solid var(--secondary-color);
+            padding-left: 10px;
+        }
+        
+        /* --- Code Blocks/Output --- */
+        .code-block {
+            background-color: #f7f9fb;
+            border: 1px solid #e0e0e0;
+            padding: 18px;
+            border-radius: 6px;
+            white-space: pre-wrap;
+            font-family: 'Inter', monospace;
+            font-size: 0.95rem;
+            overflow-x: auto;
+        }
+        .final-logline {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--primary-color); 
+        }
+
+        .success-message {
+            color: var(--success-color);
+            font-weight: 600;
+        }
+        
+        /* --- Loading Spinner --- */
+        .loading-container {
+            text-align: center;
+            margin-top: 20px;
+            height: 20px;
+        }
+        .loading-spinner {
+            display: none;
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-top: 4px solid var(--primary-color);
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* --- Responsive Adjustments --- */
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+            h1 {
+                font-size: 2rem;
+            }
+            button {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>🎬 The Logline Doctor <span>(AI Agent Team)</span></h1>
+        <p class="caption">
+            Powered by **AutoGen**, **Groq (Llama 3.1)**, and **Local RAG (Flask API)**
+        </p>
+
+        <p>Enter a weak logline below. The backend agents will process it, provide a detailed RAG-based critique, and generate a commercially viable rewrite.</p>
+
+        <textarea id="loglineInput" rows="4" placeholder="e.g., A scientist tries to stop a deadly virus."></textarea>
+        
+        <button onclick="analyzeLogline()">🩺 Doctor My Logline!</button>
+        <div class="loading-container">
+            <div id="loading" class="loading-spinner"></div>
+        </div>
+
+        <div id="results">
+            <p style="text-align: center; color: #aaa;">Analysis results will appear here after submission.</p>
+        </div>
+    </div>
+
+    <script>
+        // --- JavaScript Logic ---
+        
+        // Define the API endpoint URL (assuming Flask runs on default port 5000)
+        const API_URL = 'http://127.0.0.1:5000/analyze';
+        
+        const loglineInput = document.getElementById('loglineInput');
+        const resultsDiv = document.getElementById('results');
+        const loadingSpinner = document.getElementById('loading');
+        
+        async function analyzeLogline() {
+            const logline = loglineInput.value.trim();
+
+            if (!logline) {
+                resultsDiv.innerHTML = '<p style="color: red; text-align: center;">Please enter a logline to be analyzed.</p>';
+                return;
+            }
+
+            // Show loading state
+            resultsDiv.innerHTML = '';
+            loadingSpinner.style.display = 'block';
+
+            try {
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ logline: logline }),
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(`API Error: ${response.status} - ${errorData.error}`);
+                }
+
+                const results = await response.json();
+                displayResults(results);
+
+            } catch (error) {
+                console.error("Fetch error:", error);
+                resultsDiv.innerHTML = `
+                    <h2 style="color: var(--primary-color);">❌ Analysis Failed</h2>
+                    <p style="color: red;">The agent collaboration failed to complete. Please check your backend terminal for API or AutoGen errors.</p>
+                    <p style="font-size: 0.9rem;">Details: ${error.message}</p>
+                `;
+            } finally {
+                // Hide loading state
+                loadingSpinner.style.display = 'none';
+            }
+        }
+
+        function displayResults(results) {
+            resultsDiv.innerHTML = `
+                <h2>✅ Analysis Complete!</h2>
+                
+                <h3 class="section-title">Final Polished Logline</h3>
+                <div class="code-block final-logline">${results.final_logline}</div>
+                <p class="success-message">This is the marketable pitch ready for Hollywood.</p>
+                
+                <hr style="border-top: 1px solid #eee; margin: 30px 0;">
+
+                <h3 class="section-title">Agent Workflow Breakdown</h3>
+                <p><strong>Original Logline:</strong> <em>${results.original_logline}</em></p>
+
+                <h4 style="margin-top: 20px; color: var(--text-color);">🔬 Analyst Agent's RAG-Based Critique:</h4>
+                <div class="code-block">${results.critique}</div>
+                
+                <h4 style="margin-top: 20px; color: var(--text-color);">✍️ Creative Writer Agent's Task:</h4>
+                <p>The Writer Agent used the critique above to generate the new logline.</p>
+            `;
+        }
+    </script>
+</body>
+</html>

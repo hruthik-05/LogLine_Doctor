@@ -1,0 +1,21 @@
+# Core LangChain (v0.1.15 works with your script)
+langchain==0.1.15
+
+# LangChain integrations
+langchain-groq
+langchain-huggingface
+langchain-community
+
+# AutoGen agent framework
+autogen>=0.7.5
+
+# Stability AI (image generation)
+stability-sdk
+
+# Vector store & embeddings
+chromadb
+sentence-transformers
+
+# Utilities
+pillow
+python-dotenv

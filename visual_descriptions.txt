@@ -1,0 +1,64 @@
+======================
+VISUAL ELEMENT DESCRIPTIONS
+======================
+
+These visual entries describe how common cinematic elements *look and feel*.  
+They are used to make AI image prompts realistic, detailed, and faithful.
+
+-------------------------
+SETTINGS
+-------------------------
+tunnel: A long round metallic passage, dimly lit, with curved reflective walls and flickering orange lights.
+forest: Dense green trees, foggy atmosphere, light beams through branches, cinematic mist.
+castle: Massive medieval fortress, stone walls, high towers, banners fluttering in the wind.
+desert: Endless golden dunes, harsh sunlight, heat haze, lonely horizon.
+city: Tall skyscrapers, street lights, neon signs, wet asphalt reflections at night.
+village: Small rustic houses, cobblestone streets, warm lantern light.
+ocean: Deep blue waves, foamy surf, sunlight reflecting off the water.
+mountain: Jagged cliffs, snowy peaks, swirling clouds, grand scale.
+space: Infinite black void, distant stars, glowing nebulae, cinematic lighting.
+laboratory: Futuristic room with glass walls, glowing screens, sterile lighting.
+
+-------------------------
+CHARACTERS
+-------------------------
+detective: Trench coat, fedora hat, cigarette smoke, dark lighting, intense expression.
+scientist: White lab coat, glasses, surrounded by monitors and holographic displays.
+soldier: Tactical armor, weapon in hand, dusty environment, battlefield chaos.
+astronaut: Reflective helmet, glowing visor, cosmic background.
+child: Innocent face, simple clothing, wide eyes, natural lighting.
+robot: Metallic humanoid, glowing eyes, sleek mechanical joints.
+villain: Shadowy figure, dark clothing, menacing aura.
+hero: Confident posture, determined gaze, cinematic backlight.
+ghost: Translucent form, ethereal glow, cold color tone.
+
+-------------------------
+LIGHTING & MOOD
+-------------------------
+noir: Low key shadows, smoke-filled room, reflective puddles, monochrome palette.
+sunset: Warm orange glow, long shadows, dramatic sky.
+rain: Wet surfaces, reflections, falling droplets, blue-gray tone.
+fire: Warm flickering light, glowing embers, dramatic contrast.
+fog: Diffused light, low visibility, mysterious atmosphere.
+snow: White ground, visible breath, cold lighting, soft tones.
+destruction: Smoke, debris, broken structures, orange glow from fires.
+
+-------------------------
+OBJECTS & THEMES
+-------------------------
+weapon: Metallic glint, precision detail, dramatic close-up.
+car: Shiny body, motion blur, headlights cutting through rain.
+mirror: Reflected perspective, dual meaning, cinematic framing.
+door: Half-open with light spilling through, symbolic transition.
+computer: Futuristic UI glowing, reflections on user’s face.
+bridge: Long structure over water or city, height and depth visible.
+fireplace: Warm orange light illuminating a dark room.
+clock: Symbol of urgency, close-up focus, ticking tension.
+
+-------------------------
+CINEMATIC QUALITIES
+-------------------------
+Use soft rim lighting for drama.
+Include depth and atmosphere (fog, haze, dust).
+Emphasize composition — foreground subject, clear background contrast.
+Add cinematic color grading (teal & orange for action, cool tones for mystery, warm tones for drama).

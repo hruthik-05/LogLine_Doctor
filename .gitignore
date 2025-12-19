@@ -1,0 +1,22 @@
+# Virtual environment
+env/
+venv/
+
+# Secrets
+.env
+
+# Python cache
+__pycache__/
+*.pyc
+*.pth
+*.pt
+*.ckpt
+*.h5
+*.onnx
+__pycache__/
+.ipynb_checkpoints/
+.env
+chroma_db/
+logs/
+visual_db/
+env/
