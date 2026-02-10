@@ -156,14 +156,4 @@ python api_backend.py
 
 🎥 *“A logline isn’t a summary — it’s a promise of the movie.”*
 
-```
 
----
-
-✅ **Single Markdown file**  
-✅ **No separated parts**  
-✅ **GitHub-ready**  
-✅ **Copy–paste once and done**
-
-If you want any change (shorter / hackathon / badges), say the word 👍
-```
